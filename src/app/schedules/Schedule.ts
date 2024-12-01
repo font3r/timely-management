@@ -10,7 +10,7 @@ export type Schedule = {
     jobSlug: string
 }
 
-export type RetryPolicyStrategy = "constant"
+export type RetryPolicyStrategy = "constant" | "linear"
 
 export type RetryPolicy = {
     count: number

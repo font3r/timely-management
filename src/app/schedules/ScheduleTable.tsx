@@ -31,74 +31,74 @@ import {
 import { redirect } from "next/navigation"
 
 type ScheduleTableProps = {
-    schedules: Schedule[]
+  schedules: Schedule[]
 }
 
 export const columns: ColumnDef<Schedule>[] = [
-    {
-        accessorKey: "jobSlug",
-        header: "Job slug",
-        cell: ({ row }) => (
-          <div>{row.getValue("jobSlug")}</div>
-        ),
-    },
-    {
-        accessorKey: "description",
-        header: "Job description",
-        cell: ({ row }) => (
-          <div>{row.getValue("description")}</div>
-        ),
-    },
-    {
-        accessorKey: "frequency",
-        header: "Frequency",
-        cell: ({ row }) => (
-          <div>{row.getValue("frequency")}</div>
-        ),
-    },
-    {
-        accessorKey: "status",
-        header: "Status",
-        cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("status")}</div>
-        ),
-    },
-    {
-        accessorKey: "lastExecutionDate",
-        header: "Last execution date",
-        cell: ({ row }) => (
-            <div>{row.getValue("lastExecutionDate")}</div>
-        ),
-    },
-    {
-        accessorKey: "nextExecutionDate",
-        header: "Next execution date",
-        cell: ({ row }) => (
-            <div>{row.getValue("nextExecutionDate")}</div>
-        ),
-    },
-    {
-        id: "actions",
-        enableHiding: false,
-        cell: ({ row }) => {
-            const schedule = row.original
+  {
+    accessorKey: "jobSlug",
+    header: "Job slug",
+    cell: ({ row }) => (
+      <div>{row.getValue("jobSlug")}</div>
+    ),
+  },
+  {
+    accessorKey: "description",
+    header: "Job description",
+    cell: ({ row }) => (
+      <div>{row.getValue("description")}</div>
+    ),
+  },
+  {
+    accessorKey: "frequency",
+    header: "Frequency",
+    cell: ({ row }) => (
+      <div>{row.getValue("frequency")}</div>
+    ),
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("status")}</div>
+    ),
+  },
+  {
+    accessorKey: "lastExecutionDate",
+    header: "Last execution date",
+    cell: ({ row }) => (
+      <div>{row.getValue("lastExecutionDate")}</div>
+    ),
+  },
+  {
+    accessorKey: "nextExecutionDate",
+    header: "Next execution date",
+    cell: ({ row }) => (
+      <div>{row.getValue("nextExecutionDate")}</div>
+    ),
+  },
+  {
+    id: "actions",
+    enableHiding: false,
+    cell: ({ row }) => {
+      const schedule = row.original
 
-            return (
-                <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="h-8 w-8 p-0">
-                        <span className="sr-only">Open menu</span>
-                        <MoreHorizontal />
-                    </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                    <DropdownMenuItem onClick={() => redirect(`/schedules/${schedule.id}`)}>View details</DropdownMenuItem>
-                </DropdownMenuContent>
-                </DropdownMenu>
-            )
-        },
+      return (
+        <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="h-8 w-8 p-0">
+            <span className="sr-only">Open menu</span>
+            <MoreHorizontal />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuItem onClick={() => redirect(`/schedules/${schedule.id}`)}>View details</DropdownMenuItem>
+        </DropdownMenuContent>
+        </DropdownMenu>
+      )
     },
+  },
 ]
 
 export function ScheduleTable({ schedules }: ScheduleTableProps) {
