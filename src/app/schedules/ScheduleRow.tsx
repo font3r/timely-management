@@ -2,19 +2,21 @@
 
 import { CSSProperties } from "react"
 import { Schedule, ScheduleStatus } from "./Schedule"
+import { redirect, useRouter } from "next/navigation"
 
 type ScheduleRowProps = {
     schedule: Schedule
 }
 
 export default function ScheduleRow({ schedule }: ScheduleRowProps) {
+    const router = useRouter()
+
     const trStyle: CSSProperties = { backgroundColor: '#c9c9c9' }
     const tdStyle: CSSProperties = { padding: '1rem 1rem 1rem 1rem' }
-    const statusStyle: CSSProperties = { backgroundColor: 'yellow'}
 
     return (
         <tr style={trStyle}>
-            <td style={tdStyle}>{ schedule.id }</td>
+            <td style={tdStyle} onClick={() => redirect(`/schedules/${schedule.id}`)}>{ schedule.id }</td>
             <td style={tdStyle}>{ schedule.jobSlug }</td>
             <td style={tdStyle}>{ schedule.description }</td>
             <td style={tdStyle}>{ schedule.frequency }</td>

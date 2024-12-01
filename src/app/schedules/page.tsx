@@ -1,10 +1,10 @@
 import { Schedule } from "./Schedule"
 import { ScheduleTable } from "./ScheduleTable"
 
-export default async function Dashboard() {
+export default async function SchedulesPage() {
     const schedules: Schedule[] = []
 
-    await fetch('http://localhost:5000/api/v1/schedules')
+    await fetch(`${process.env.baseAddress}/api/v1/schedules`)
         .then(res => res.json())
         .then((json) => schedules.push(...json))
 

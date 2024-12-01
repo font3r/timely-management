@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  env: {
+    baseAddress: "http://localhost:7468"
+  }
 };
 
 export default nextConfig;
