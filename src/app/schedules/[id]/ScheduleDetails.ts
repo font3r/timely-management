@@ -12,10 +12,12 @@ export type ScheduleDetails = {
     recentJobRuns: Map<string, JobRun>
 }
 
+export type RetryPolicyStrategy = "constant" | "linear"
+
 export type RetryPolicy = {
-    strategy: string
     count: number
     interval: string
+    strategy: RetryPolicyStrategy
 }
 
 export type Job = {

@@ -28,7 +28,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-import { redirect } from "next/navigation"
+import { redirect } from "next/navigation";
 
 type ScheduleTableProps = {
   schedules: Schedule[]
@@ -111,6 +111,11 @@ export function ScheduleTable({ schedules }: ScheduleTableProps) {
 
   return (
     <div className="w-full">
+      <div className="py-1">
+        <Button variant="outline" onClick={() => redirect("/schedules/create")}>
+          Add schedule
+        </Button>
+      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
