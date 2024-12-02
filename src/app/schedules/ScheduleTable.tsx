@@ -60,7 +60,7 @@ export const columns: ColumnDef<Schedule>[] = [
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
+      <div>{row.getValue("status")}</div>
     ),
   },
   {
@@ -93,7 +93,7 @@ export const columns: ColumnDef<Schedule>[] = [
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => redirect(`/schedules/${schedule.id}`)}>View details</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => redirect(`/schedules/${schedule.id}`)}>Details</DropdownMenuItem>
         </DropdownMenuContent>
         </DropdownMenu>
       )
