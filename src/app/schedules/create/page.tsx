@@ -20,13 +20,16 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, TreePalm } from "lucide-react";
 import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
-    description: z.string(),
+    description: z.string().min(1, { 
+        message: "Description is required"
+    }),
     frequency: z.string().min(1, { 
         message: "Frequency is required"
     }),
@@ -58,7 +61,8 @@ const formSchema = z.object({
     })
 })
 
-async function onSubmit(values: z.infer<typeof formSchema>) {
+async function onSubmit(values: z.infer<typeof formSchema>, onSuccess: () => void, 
+    onError: (s: string) => void) {
     const response = await fetch(`${process.env.baseAddress}/api/v1/schedules`, {
         method: "POST",
         headers: {
@@ -68,11 +72,15 @@ async function onSubmit(values: z.infer<typeof formSchema>) {
     })
 
     if (response.status != 200) {
-        console.log(await response.text())
-    }
+        onError(await response.text())
+        return
+    } 
+
+    onSuccess()
 }
 
 export default function CreateSchedule() {
+    const { toast } = useToast()
     const [hasScheduleStart, setHasScheduleStart] = useState(false)
     const [hasData, setHasData] = useState(false)
     const [hasRetryPolicy, setHasRetryPolicy] = useState(false)
@@ -95,6 +103,20 @@ export default function CreateSchedule() {
         },
     })
 
+    const onSuccess: () => void = () => toast({
+        title: "Success",
+        description: "schedule created",
+
+    })
+
+    const onError: (error: string) => void = (error: string) => { 
+        toast({
+            title: "Error",
+            description: `error during creating schedule ${error}`,
+            variant: "destructive"
+        })
+    }
+
     return (
         <Card>
             <CardHeader>
@@ -102,7 +124,7 @@ export default function CreateSchedule() {
             </CardHeader>
             <CardContent>
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                    <form onSubmit={form.handleSubmit((x, y) => onSubmit(x, onSuccess, onError))} className="space-y-8">
                         <FormField
                             control={form.control}
                             name="description"
