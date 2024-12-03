@@ -95,8 +95,6 @@ export default function CreateSchedule() {
         },
     })
 
-    console.dir(form.getValues().configuration.transportType)
-
     return (
         <Card>
             <CardHeader>
@@ -154,7 +152,7 @@ export default function CreateSchedule() {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Transport type</FormLabel>
-                                    <Select onValueChange={(val) => { setTransportType(val); field.onChange }} defaultValue={field.value}>
+                                    <Select onValueChange={(val) => { field.onChange(val); setTransportType(val); }} defaultValue={field.value}>
                                         <FormControl>
                                         <SelectTrigger>
                                             <SelectValue placeholder="Select transport type" />
