@@ -23,7 +23,7 @@ export type RetryPolicy = {
 export type Job = {
     id: string
     slug: string
-    data: any
+    data: any | null
 }
 
 export type Configuration = {

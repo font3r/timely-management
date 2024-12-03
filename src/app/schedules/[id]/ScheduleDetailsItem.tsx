@@ -51,7 +51,9 @@ export function ScheduleDetailsItem({ schedule }: ScheduleDetailsProps) {
                     <div className="text-lg font-semibold">Job</div>
                     <LabeledInput label="Id"><p>{schedule.job.id}</p></LabeledInput>
                     <LabeledInput label="Slug"><p>{schedule.job.slug}</p></LabeledInput>
-                    <LabeledInput label="Data"><p>{JSON.stringify(schedule.job.data)}</p></LabeledInput>
+                    <LabeledInput label="Data">
+                        <p>{schedule.job.data === null ? "(empty)" : JSON.stringify(schedule.job.data)}</p>
+                    </LabeledInput>
                 </div>
                 <Separator className="my-4" />
                 <div className="text-lg font-semibold">Recent job runs</div>
