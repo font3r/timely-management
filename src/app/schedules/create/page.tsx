@@ -87,7 +87,7 @@ export default function CreateSchedule() {
                 slug: "",
                 data: undefined
             },
-            retryPolicy: null,
+            retryPolicy: undefined,
             configuration: {
                 transportType: "",
                 url: ""
