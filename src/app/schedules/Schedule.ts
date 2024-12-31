@@ -17,3 +17,7 @@ export type RetryPolicy = {
     interval: string
     strategy: RetryPolicyStrategy
 }
+
+export type ScheduleTableProps = {
+    schedules: Schedule[]
+}

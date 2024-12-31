@@ -1,5 +1,5 @@
 import { Schedule } from "./Schedule"
-import { ScheduleTable } from "./ScheduleTable"
+import { ScheduleView } from "./ScheduleView";
 
 export default async function SchedulesPage() {
     const initialPage = 1;
@@ -12,5 +12,5 @@ export default async function SchedulesPage() {
 
     if (!schedules) return <div>Loading...</div>;
 
-    return <ScheduleTable schedules={schedules} />
+    return <ScheduleView schedules={schedules} />
 }

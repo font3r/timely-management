@@ -1,6 +1,6 @@
 "use client"
 
-import { Schedule } from "./Schedule";
+import { Schedule, ScheduleTableProps } from "./Schedule";
 import * as React from "react"
 import {
   ColumnDef,
@@ -29,12 +29,9 @@ import {
 } from "@/components/ui/table"
 
 import { redirect } from "next/navigation";
+import { useState, useEffect } from "react";
 
-type ScheduleTableProps = {
-  schedules: Schedule[]
-}
-
-export const columns: ColumnDef<Schedule>[] = [
+const columns: ColumnDef<Schedule>[] = [
   {
     accessorKey: "jobSlug",
     header: "Job slug",
@@ -101,7 +98,8 @@ export const columns: ColumnDef<Schedule>[] = [
   },
 ]
 
-export function ScheduleTable({ schedules }: ScheduleTableProps) {
+export function ScheduleTable({ schedules: initialSchedules }: ScheduleTableProps) {
+  const [schedules, setSchedules] = useState(initialSchedules)
   const table = useReactTable({
     data: schedules,
     columns,
@@ -109,13 +107,17 @@ export function ScheduleTable({ schedules }: ScheduleTableProps) {
     getPaginationRowModel: getPaginationRowModel(),
   })
 
+  useEffect(() => { 
+    const initialPage = 1;
+    const pageSize = 100; // TODO: Handle server-side pagination
+  
+    fetch(`${process.env.baseAddress}/api/v1/schedules?page=${initialPage}&pageSize=${pageSize}`)
+        .then(res => res.json())
+        .then((json) => setSchedules(json))
+  }, [false])
+
   return (
     <div className="w-full">
-      <div className="py-1">
-        <Button variant="outline" onClick={() => redirect("/schedules/create")}>
-          Add schedule
-        </Button>
-      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
